@@ -1,0 +1,33 @@
+{% extends 'mainLayout.html' %}
+
+{% block body %}
+<br><br><br><br>
+  <div class="text-center mb-4">
+      <h1 class="h1 mb-10 font-bold"><i class="fa fa-users fa-5x fa-fw">
+            </i></h1>
+       <h2>Create an Account</h2>
+
+{% from "Help.html" import render_field %}
+
+  <form method="POST" action="">
+
+    <div class="margin-bottom-sm">
+     <div class="text-center mb-4">
+    <div class="form-group margin-bottom-sm">
+      {{render_field(form.userName,class_="form-control")}}
+    </div>
+    <div class="form-group margin-bottom-sm">
+      {{render_field(form.email,class_="form-control")}}
+    </div>
+    <div class="form-group margin-bottom-sm">
+      {{render_field(form.password,class_="form-control")}}
+    </div>
+    <div class="form-group margin-bottom-sm">
+      {{render_field(form.confirm,class_="form-control")}}
+    </div>
+    <div class="form-group margin-bottom-sm">
+      <p><h2><input type="submit" class="btn-primary btn-block" value="Sign Up"></p></h2>
+    </div>
+  </form>
+
+{% endblock %}

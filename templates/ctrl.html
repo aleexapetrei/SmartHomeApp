@@ -1,0 +1,168 @@
+
+{% extends 'voiceRec.html' %}
+
+{% block body %}
+
+<h4> <center>Click the Microphone to talk</center> </h4>
+<div id ="area1">
+  <form id = "" action="" method="POST">
+    <input type="text" name="userInput" id="userCommand"class="form-control input-lg" placeholder="...Talk Now" />
+    <button onclick="Convert();"><i class="fa fa-microphone"></i></button>
+  </form>
+</div>
+
+
+<div id ="area2">
+  <form action="" method="POST" id="">
+    <input type= "text" id="userrInput" name="userrCommand" class="form-control input-lg" placeholder="" />
+  </form>
+</div>
+
+
+
+<script>
+
+// googleAPI text to Speech
+function textTospeech(text, callback)
+{
+    var speech = new SpeechSynthesisUtterance();
+    speech.lang = 'en'; //langauge english
+    speech.text = text; //text 
+    speech.rate=1; //value 1 ON
+
+    speech.onend = function () {
+        if (callback) {
+            callback();
+        }
+    };
+
+
+    speechSynthesis.talk(speech);
+}
+
+  function Convert()
+  {
+
+    if ('webkitSpeechRecognition' in window)
+    {
+
+          var VoiceRecognition =new webkitSpeechRecognition();
+          VoiceRecognition.continuous=true;
+          VoiceRecognition.interimResults=true;
+          VoiceRecognition.lang='en';
+          VoiceRecognition.start();
+
+          var finalRecords = '';
+
+          VoiceRecognition.onresult = function(event)
+          {
+            var interimRecords = '';
+            for (var i=event.resultIndex; i< event.results.length; i++)
+            {
+              var records =event.results[i][0].records;
+              records.replace("\n", "<br>");
+              if(event.results[i].isFinal)
+              {
+                finalRecords+=records;
+              }
+              else
+              {
+                finalRecords+=records;
+              }
+
+            }
+
+
+          }
+        
+          VoiceRecognition.onstart=function(event)
+          {
+            document.getElementById("userCommand").innerHTML= '<span style:"color=#800">' + '...Listenning. Try speaking';
+          }
+          }
+
+
+        else
+    }
+
+  
+
+document.getElementById("userCommand").innerHTML=finalRecords + '<span style="color:#800">' +       interimRecords +'</span>';
+    var str = interimRecords;
+
+
+            if ((str.match(/corridor/gi)) && (str.match(/light/gi)) && (str.match(/on/gi)))
+            {
+              text="LightS ON?";
+              textTospeech(text);
+              document.getElementById("userrCommand").value= text;
+
+              document.getElementById("userCommand").value= "";
+         
+              if ((str.match(/go1/gi)) ||(str.match(/go2/gi))||(str.match(/go3/gi))
+                {
+                  text="TURN LIGHTS ON";
+                  textTospeech(text);
+                  s="Corridor-LIGHT-ON"
+                }
+            command="Corridor-LIGHT-ON";
+            }
+            else if ((str.match(/corridor/gi)) &&(str.match(/bulb/gi)) && (str.match(/on/gi)))
+            {
+            command= "Corridor-LIGHT-ON";
+            }
+            else if ((str.match(/corridor/gi)) &&(str.match(/bulb/gi)) && (str.match(/off/gi)))
+            {
+            command= "Corridor-LIGHT-OFF";
+            }
+            else if ((str.match(/corridor/gi)) &&(str.match(/light/gi)) && (str.match(/off/gi)))
+            {
+            command= "Corridor-LIGHT-OFF";
+            }
+            else if ((str.match(/bed/gi)) &&(str.match(/heater/gi)) && (str.match(/on/gi)))
+        
+//second device
+            if ((str.match(/bedroom/gi)) && (str.match(/light/gi)) && (str.match(/on/gi)))
+            {
+            command="BedRoom-LIGHT-ON";
+            }
+            else if ((str.match(/bedroom/gi)) &&(str.match(/bulb/gi)) && (str.match(/on/gi)))
+            {
+            command= "BedRoom-LIGHT-ON";
+            }
+            else if ((str.match(/bedroom/gi)) &&(str.match(/light/gi)) && (str.match(/off/gi)))
+            {
+            command= "BedRoom-LIGHT-OFF";
+            }
+            else if ((str.match(/bedroom/gi)) &&(str.match(/bulb/gi)) && (str.match(/off/gi)))
+            {
+            command= "BedRoom-LIGHT-OFF";
+            }
+            
+//last device
+            if ((str.match(/living/gi)) && (str.match(/lamp/gi)) && (str.match(/on/gi)))
+            {
+            command="LivingRoom-LAMP-ON";
+            }
+            else if ((str.match(/living/gi)) &&(str.match(/bulb/gi)) && (str.match(/on/gi)))
+            {
+            command= "LivingRoom-LAMP-ON";
+            }
+            else if ((str.match(/living/gi)) &&(str.match(/lamp/gi)) && (str.match(/off/gi)))
+            {
+            command= "BedRoom-LIGHT-OFF";
+            }
+            else if ((str.match(/living/gi)) &&(str.match(/bulb/gi)) && (str.match(/off/gi)))
+            {
+            command= "BedRoom-LIGHT-OFF";
+            }
+        
+
+            if  (finalRecords!=="")
+            {
+            document.getElementById("userrCommand").innerHTML=command + "\n";
+            }
+</script>
+
+
+{% endblock %}

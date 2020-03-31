@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SmartHome</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style type="text/css">"
+
+    bodyFrame{ 
+      }
+         button{
+      font-size:55px;
+      position:absolute;
+      top:620px;
+      left:48%;
+      color:darkblue;
+      }
+
+      /*submit area*/
+      #area2{ 
+      height:120px;
+      border:5px solid;
+      padding:10px;
+      font-size:15px;
+      }
+   
+     #area1{
+      height:200px;
+      border:5px solid;
+      padding:55px;
+      font-size:54px;
+      }
+    </style>
+
+  </head>
+  <body class="bodyFrame">
+    {% include 'navigationBar.html' %}
+
+    <div class ="container">
+      {% include 'msgg.html' %}
+      {% block body %}{% endblock %}
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"> </script>
+
+  </body>
+</html>

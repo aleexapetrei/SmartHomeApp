@@ -1,0 +1,210 @@
+
+{% extends 'voiceRec.html' %}
+{% block body %}
+<center>
+<div class="col-mb-4">
+  <div class="p-3 mb-2 bg-grey text-black">
+  <h1><i class="fa fa fa-android fa-4x fa-fw"> </i> Welcome {{session.userName}}</h1>
+
+    <h3>
+      <center>
+          <i class ="fa fa-arrow-right fa-fw"></i>Android is your SmartHome Assistant<br /><br />
+          Click the Microphone to start Controlling the Smart Home Devices <br /><br />
+          Commands: TURN OF / TURN ON --> (Lights, Kettle, Radio, Microwave, Lamp) <br /> <br />You also need to specify the location as well ; For Example: "Turn the Kitchen Kettle ON"<br /><br />
+
+ {% if session.logged_in %}
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+            <!-- google api -->
+    
+
+          text="welcome";
+          textTospeech(text);
+          </script>
+{% endif %}
+      
+      </center>
+<center>
+
+    </h3>
+  </div>
+</div>
+<div id ="area1" class="form-group margin-bottom-">
+    <form action="" method="GET">
+      <input type="text" name="userInput" id="userCommand" contenteditable="true" class="form-control input-lg" />
+    </form>
+    <center>
+      <br />
+        <button class="align-bottom" id="buttonSpeech" onclick="Convert();">
+   <i class="fa fa-microphone"></i>
+        </button>
+    </center>
+
+
+</div>
+<div id ="area2" class=" margin-bottom-sm">
+
+    <form id ="submit" action="control" method="POST">
+      <input type="text" name="userrInput" id="userrCommand" contenteditable="false" class="form-control input-lg" /><br />
+        <center><input type="button" name="myButton" class="btn btn-primary btn-block" value="Submit" /></center>
+    </form>
+</div>
+
+
+<script>
+
+// googleAPI text to Speech
+function textTospeech(text, callback)
+{
+    var speech = new SpeechSynthesisUtterance();
+    speech.lang = 'en'; //langauge english
+    speech.text = text; //text 
+    speech.rate=1; //value 1 ON
+
+    speech.onend = function () {
+        if (callback) {
+            callback();
+        }
+    };
+
+    speech.onerror = function (e) {
+        if (callback) {
+            callback(e);
+        }
+    };
+
+    speechSynthesis.talk(speech);
+}
+</script>
+
+
+
+<script>
+
+document.addEventListner("click",Convert());
+
+
+// googleAPI convert SPEECH TO TEXT
+function Convert()
+{
+    if ('webkitSpeechRecognition' in window)
+    {
+
+      var VoiceRecognition =new webkitSpeechRecognition();
+      VoiceRecognition.continuous=false;
+      VoiceRecognition.interimResults=true;
+      VoiceRecognition.lang='en';
+      VoiceRecognition.start();
+      var finalRecords = '';
+      VoiceRecognition.onresult = function(event)
+      {
+        var finalRecords = '';
+        var interimRecords = '';
+         for (var l=event.resultIndex; l< event.results.length; l++)
+            {
+                var records =event.results[l][0].records;
+                  records.replace("\n", "<br>");
+                     if(event.results[l].isFinal)
+                        {
+                              finalRecords+=records;
+                        }
+                     else
+                        {
+                           interimRecords+=records;
+                        }
+             }
+          document.getElementsById("userCommand").value= finalRecords;
+
+//string str
+          var str=document.getElementsById("userCommand").value;
+          if(str!="")
+{
+
+    if ((str.match(/bedroom/gi)) && (str.match(/light/gi)) && (str.match(/on/gi)))
+    {
+      s= "BedRoom-LIGHT-ON";
+    }
+ else if ((str.match(/bedroom/gi)) && (str.match(/bulb/gi)) && (str.match(/on/gi)))
+    {
+      s= "BedRoom-LIGHT-ON";
+    }
+
+ else if ((str.match(/bedroom/gi)) && (str.match(/light/gi)) && (str.match(/off/gi)))
+    {
+      s= "BedRoom-LIGHT-OFF";
+    }
+ else if ((str.match(/bedroom/gi)) && (str.match(/bulb/gi)) && (str.match(/off/gi)))
+    {
+      s= "BedRoom-LIGHT-OFF";
+    }
+
+//
+
+  else if ((str.match(/living/gi)) && (str.match(/lamp/gi)) && (str.match(/on/gi)))
+    {
+      s= "LivingRoom-LAMP-ON";
+    }
+      else if ((str.match(/living/gi)) && (str.match(/bulb/gi)) && (str.match(/on/gi)))
+    {
+      s= "LivingRoom-LAMP-ON";
+    }
+   else if ((str.match(/living/gi)) && (str.match(/lamp/gi)) && (str.match(/off/gi)))
+    {
+      s= "LivingRoom-LAMP-OFF";
+    }
+   else if ((str.match(/living/gi)) && (str.match(/bulb/gi)) && (str.match(/off/gi)))
+    {
+      s= "LivingRoom-LAMP-OFF";
+    }
+
+//
+
+else if ((str.match(/corridor/gi)) && (str.match(/light/gi)) && (str.match(/on/gi)))
+    {
+      s= "Corridor-LIGHT-ON";
+    }
+else if ((str.match(/corridor/gi)) && (str.match(/bulb/gi)) && (str.match(/on/gi)))
+    {
+      s= "Corridor-LIGHT-ON";
+    }
+       else if ((str.match(/corridor/gi)) && (str.match(/light/gi)) && (str.match(/on/gi)))
+    {
+      s= "Corridor-LIGHT-OFF";
+    }
+         else if ((str.match(/corridor/gi)) && (str.match(/bulb/gi)) && (str.match(/on/gi)))
+    {
+      s= "Corridor-LIGHT-OFF";
+    }
+
+else
+{
+  location.reload();
+}
+document.getElementsById("userrCommand").
+value=s;
+VoiceRecognition.getElementsById("submit").
+submit();
+}
+}
+VoiceRecognition.onerror=function(event)
+{
+  location.reload();
+}
+ 
+
+
+
+  VoiceRecognition.onstart=function(event)
+{
+  document.getElementsById("userCommand").value='I am Listening.. please Talk Now';
+  document.getElementsById("userrCommand").value=''; 
+}
+}
+else
+ {
+
+  document.getElementsById("userCommand").value="Check Other Web Browsers";
+  }
+}
+</script>
+
+{% endblock %}

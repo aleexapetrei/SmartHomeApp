@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default">
+      <div class="container">
+          <div id="navbar" class="collapse navbar-collapse">
+
+
+          <a class ="" href="/">&nbsp;&nbsp;&nbsp;&nbsp;
+               <img src="http://cdn.onlinewebfonts.com/svg/img_347292.png" height="60" width="50" > 
+  
+              </a>
+
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if session.loggedin %}
+
+            <li> <a class ="" href="/control">&nbsp;&nbsp;  
+               <img src="https://img.icons8.com/metro/420/remote-control.png" height="60" width="50 " >  </a> </li>
+
+            <li> <a class ="" href="/log_out">
+               <img src="https://pngimage.net/wp-content/uploads/2018/06/logout-png-images-5.png" height="60" width="50 " >  </a> </li>
+
+            {% else %}
+
+
+              <li> <a class ="" href="/login">  
+               <img src="https://www.freeiconspng.com/uploads/user-login-icon-29.png" height="60" width="50" >  </a> </li>
+
+
+                <li> <a class ="" href="/control">&nbsp;&nbsp;  
+               <img src="https://img.icons8.com/metro/420/remote-control.png" height="60" width="50 " >  </a> </li>
+
+               <li> <a class ="" href="/Register">  
+               <img src="http://chittagongit.com/images/registration-icon-png/registration-icon-png-6.jpg" height="60" width="50" >  </a> </li>
+              
+
+            {% endif %} 
+
+
+          </ul>
+        </div>
+      </div>
+</nav>
+

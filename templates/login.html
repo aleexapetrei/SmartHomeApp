@@ -1,0 +1,37 @@
+{% extends 'mainLayout.html' %}
+
+    {% block body %}
+
+    <form class="form-signin" method="POST" action="">
+  <div class="text-center mb-4">
+      <h1 class="h1 mb-10 font-bold"><i class="fa fa-user fa-5x fa-fw">
+            </i></h1>
+       <h2>Connect with SmartHomeApp</h2>
+
+<!-- //email form // match database details -->
+      <div class="input-group margin-bottom-sm">
+        <span class="input-group-addon"><i class="fa fa-envelope
+          fa-fw"></i></span>
+        <input name="email" id ="inputEmail" class="form-control" type="email" placeholder="Insert Email Address" required autofocus value={{request.form.email}}>
+      </div>
+
+
+<!-- //password form // match database details -->
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+        <input name ="password" id="inputPassword" id ="inputEmail" class="form-control" type="password" placeholder="Insert Password" required autofocus value={{request.form.email}}>
+      </div>
+
+
+      <div class="checkbox mb-5">
+                 <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                  </label>
+      </div>
+
+
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Sign In </button> </form> 
+
+{% endblock %}
